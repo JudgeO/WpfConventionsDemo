@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Windows;
+using Caliburn.Micro;
 using Basta2020Feb.CoffeeShop.ViewModels;
 using Basta2020Feb.CoffeeShop.Views;
 
 namespace Basta2020Feb.CoffeeShop
 {
-	internal class Bootstrapper
+	internal class Bootstrapper : BootstrapperBase
 	{
 		public Bootstrapper()
 		{
-			Application.Current.Startup += OnStartup;
+			Initialize();
 		}
 
-		private static void OnStartup(object sender, StartupEventArgs e)
+		protected override void OnStartup(object sender, StartupEventArgs e)
 		{
-			var view = new MainView
-			{
-				DataContext = new MainViewModel()
-			};
-
-			view.Show();
+			DisplayRootViewFor<MainViewModel>();
 		}
 	}
 }
