@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Basta2020Feb.CoffeeShop.ViewModels"
-        xmlns:v="clr-namespace:Basta2020Feb.CoffeeShop.Views"
         mc:Ignorable="d"
         Title="CoffeeShop 2.0"
         Width="1600"
@@ -14,36 +13,18 @@
 		<x:Type Type="vm:IMainViewModel" />
 	</d:Window.DataContext>
 	<DockPanel>
-		<ItemsControl ItemsSource="{Binding Alerts}"
-		              DockPanel.Dock="Top">
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<v:AlertView />
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-		<ListView ItemsSource="{Binding Machines}"
-		          SelectedItem="{Binding SelectedMachine}"
+		<ItemsControl x:Name="Alerts"
+		              DockPanel.Dock="Top" />
+		<ListView x:Name="Machines"
 		          DockPanel.Dock="Left"
-		          BorderThickness="0 0 2 0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-					<v:MachineView />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-		</ListView>
+		          BorderThickness="0 0 2 0" />
 		<TextBlock Text="* frisch aufgefüllt"
 		           DockPanel.Dock="Bottom"
 		           FontSize="20"
 		           Margin="10" />
 		<ScrollViewer VerticalScrollBarVisibility="Auto">
-			<ItemsControl ItemsSource="{Binding SelectedMachine.Coffees}"
+			<ItemsControl x:Name="SelectedMachine_Coffees"
 			              HorizontalAlignment="Center">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<v:CoffeeView />
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<WrapPanel />
