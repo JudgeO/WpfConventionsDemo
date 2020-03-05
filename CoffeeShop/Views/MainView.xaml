@@ -1,0 +1,142 @@
+﻿<Window x:Class="Basta2020Feb.CoffeeShop.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:Basta2020Feb.CoffeeShop.Views.Converters"
+        mc:Ignorable="d"
+        Title="CoffeeShop 2.0"
+        Width="1600"
+        Height="800"
+        WindowStartupLocation="CenterScreen">
+	<Window.Resources>
+		<conv:BooleanToValueConverter x:Key="BooleanToValueConverter" />
+	</Window.Resources>
+	<DockPanel>
+		<ItemsControl ItemsSource="{Binding AlertList}"
+		              DockPanel.Dock="Top">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Border Background="IndianRed"
+					        BorderBrush="Black"
+					        BorderThickness="0 0 0 2"
+					        Padding="5">
+						<StackPanel Orientation="Horizontal">
+							<Button Command="{Binding ConfirmCommand}"
+							        Content="×"
+							        FontSize="30"
+							        Height="30"
+							        Width="30"
+							        Padding="0 -9 0 0" />
+							<TextBlock Text="{Binding Message}"
+							           FontSize="20"
+							           Margin="5 0 0 0"
+							           VerticalAlignment="Center" />
+						</StackPanel>
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+		<ListView ItemsSource="{Binding Machines}"
+		          SelectedItem="{Binding SelectedMachine}"
+		          DockPanel.Dock="Left"
+		          BorderThickness="0 0 2 0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+	                <TextBlock Text="{Binding DisplayName}"
+	                           FontSize="20"
+	                           Margin="30 10" />
+				</DataTemplate>
+            </ListView.ItemTemplate>
+		</ListView>
+		<TextBlock Text="* frisch aufgefüllt"
+		           DockPanel.Dock="Bottom"
+		           FontSize="20"
+		           Margin="10" />
+		<ScrollViewer VerticalScrollBarVisibility="Auto">
+			<ItemsControl ItemsSource="{Binding SelectedMachine.Coffees}"
+			              HorizontalAlignment="Center">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border BorderBrush="Black"
+						        BorderThickness="1"
+						        Margin="10"
+						        Width="680"
+						        Height="280">
+							<Grid Margin="10">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="250" />
+									<ColumnDefinition Width="10" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="10" />
+									<ColumnDefinition Width="20" />
+								</Grid.ColumnDefinitions>
+								<Image Source="{Binding ImageSource}"
+								       Grid.Column="0"
+								       VerticalAlignment="Top" />
+								<Border Grid.Column="4"
+								        BorderBrush="{Binding StockCount, Converter={conv:ValueInRangeConverter Min=1, Max=10, IfTrue=Green, IfFalse=Red}}"
+								        BorderThickness="3">
+									<ProgressBar Foreground="Green"
+									             Maximum="{Binding StockCapacity}"
+									             Value="{Binding StockCount, Mode=OneWay}"
+									             Orientation="Vertical"/>
+								</Border>
+								<DockPanel Grid.Column="2">
+									<TextBlock Text="{Binding DisplayName}"
+									           DockPanel.Dock="Top"
+									           FontSize="32"
+									           FontWeight="Bold" />
+									<TextBlock Text="{Binding Description}"
+									           DockPanel.Dock="Top"
+									           FontSize="16"
+									           TextWrapping="Wrap"
+									           Margin="0 10 0 0" />
+								</DockPanel>
+								<TextBlock Text="{Binding LastRefill, StringFormat={}{0:\'Zuletzt aufgefüllt: \' HH\':\'mm\':\'ss}}"
+								           Grid.Column="2"
+								           VerticalAlignment="Bottom" />
+								<StackPanel Grid.Column="2"
+								            Orientation="Vertical"
+								            VerticalAlignment="Bottom">
+									<TextBlock Text="{Binding StockText}"
+									           FontSize="12" 
+									           HorizontalAlignment="Right"
+									           Margin="0 10"/>
+									<Button Command="{Binding OrderCoffeeCommand}"
+									        Content="Bestellen"
+									        FontSize="16"
+									        Padding="20 5"
+									        HorizontalAlignment="Right" />
+								</StackPanel>
+								<Border Visibility="{Binding IsSoldOut, Converter={StaticResource BooleanToValueConverter}, ConverterParameter='Visible;Collapsed'}"
+								        Grid.Column="0"
+								        Grid.ColumnSpan="5"
+								        BorderBrush="Red"
+								        BorderThickness="3"
+								        Background="White"
+								        HorizontalAlignment="Center"
+								        VerticalAlignment="Center"
+								        Width="500"
+								        RenderTransformOrigin="0.5,0.5">
+									<Border.RenderTransform>
+										<RotateTransform Angle="-20" />
+									</Border.RenderTransform>
+									<TextBlock Foreground="Red"
+									           FontSize="50"
+									           HorizontalAlignment="Center"
+									           Text="Nicht vorrätig 😔" />
+								</Border>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</ScrollViewer>
+	</DockPanel>
+</Window>
