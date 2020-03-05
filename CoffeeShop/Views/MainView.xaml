@@ -13,9 +13,6 @@
 	<d:Window.DataContext>
 		<x:Type Type="vm:IMainViewModel" />
 	</d:Window.DataContext>
-	<Window.Resources>
-		<conv:BooleanToValueConverter x:Key="BooleanToValueConverter" />
-	</Window.Resources>
 	<DockPanel>
 		<ItemsControl ItemsSource="{Binding Alerts}"
 		              DockPanel.Dock="Top">
@@ -113,7 +110,7 @@
 									        Padding="20 5"
 									        HorizontalAlignment="Right" />
 								</StackPanel>
-								<Border Visibility="{Binding IsSoldOut, Converter={StaticResource BooleanToValueConverter}, ConverterParameter='Visible;Collapsed'}"
+								<Border Visibility="{Binding IsSoldOut, Converter={conv:BooleanToValueConverter IfTrue=Visible, IfFalse=Collapsed}}"
 								        Grid.Column="0"
 								        Grid.ColumnSpan="5"
 								        BorderBrush="Red"
