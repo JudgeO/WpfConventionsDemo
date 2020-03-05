@@ -65,6 +65,18 @@
     <Compile Include="ViewModels\CoffeeViewModel.cs" />
     <Compile Include="ViewModels\Common\CommandHelper.cs" />
     <Compile Include="ViewModels\Common\BaseViewModel.cs" />
+    <Page Include="Views\AlertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CoffeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MachineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,8 +94,17 @@
     <Compile Include="ViewModels\MachineViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Common\ObservableReadOnlyList.cs" />
+    <Compile Include="Views\AlertView.xaml.cs">
+      <DependentUpon>AlertView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CoffeeView.xaml.cs">
+      <DependentUpon>CoffeeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Converters\BooleanToValueConverter.cs" />
     <Compile Include="Views\Converters\ValueInRangeConverter.cs" />
+    <Compile Include="Views\MachineView.xaml.cs">
+      <DependentUpon>MachineView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
