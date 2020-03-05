@@ -4,16 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:Basta2020Feb.CoffeeShop.Views.Converters"
+        xmlns:vm="clr-namespace:Basta2020Feb.CoffeeShop.ViewModels"
         mc:Ignorable="d"
         Title="CoffeeShop 2.0"
         Width="1600"
         Height="800"
         WindowStartupLocation="CenterScreen">
+	<d:Window.DataContext>
+		<x:Type Type="vm:IMainViewModel" />
+	</d:Window.DataContext>
 	<Window.Resources>
 		<conv:BooleanToValueConverter x:Key="BooleanToValueConverter" />
 	</Window.Resources>
 	<DockPanel>
-		<ItemsControl ItemsSource="{Binding AlertList}"
+		<ItemsControl ItemsSource="{Binding Alerts}"
 		              DockPanel.Dock="Top">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
