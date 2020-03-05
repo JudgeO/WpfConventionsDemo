@@ -12,7 +12,6 @@ namespace Basta2020Feb.CoffeeShop.ViewModels
 
 		private readonly string _name;
 		private ICommand _orderCoffeeCommand;
-		private int _stockCount;
 
 		public bool CanOrderCoffee => StockCount > 0;
 
@@ -22,7 +21,7 @@ namespace Basta2020Feb.CoffeeShop.ViewModels
 
 		public string ImageSource { get; }
 
-		public bool IsSoldOut { get; private set; }
+		public bool IsSoldOut => StockCount == 0;
 
 		public DateTime? LastRefill { get; private set; }
 
@@ -30,18 +29,11 @@ namespace Basta2020Feb.CoffeeShop.ViewModels
 
 		public int StockCapacity => 10;
 
-		public int StockCount
+		public int StockCount { get; private set; }
+
+		private void OnStockCountChanged()
 		{
-			get => _stockCount;
-			private set
-			{
-				_stockCount = value;
-				OnPropertyChanged(nameof(StockCount));
-				OnPropertyChanged(nameof(CanOrderCoffee));
-				OnPropertyChanged(nameof(StockText));
-				IsSoldOut = StockCount == 0;
-				Application.Current.Dispatcher?.BeginInvoke((Action)CommandManager.InvalidateRequerySuggested);
-			}
+			Application.Current.Dispatcher?.BeginInvoke((Action)CommandManager.InvalidateRequerySuggested);
 		}
 
 		public string StockText => $"{StockCount} / {StockCapacity}";
