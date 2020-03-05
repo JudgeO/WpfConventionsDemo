@@ -10,9 +10,6 @@ namespace Basta2020Feb.CoffeeShop.ViewModels
 	{
 		private const int TimeToMarkAsNew = 10000;
 
-		private string _displayName;
-		private bool _isSoldOut;
-		private DateTime? _lastRefill;
 		private readonly string _name;
 		private ICommand _orderCoffeeCommand;
 		private int _stockCount;
@@ -21,37 +18,13 @@ namespace Basta2020Feb.CoffeeShop.ViewModels
 
 		public string Description { get; }
 
-		public string DisplayName
-		{
-			get => _displayName;
-			private set
-			{
-				_displayName = value;
-				OnPropertyChanged();
-			}
-		}
+		public string DisplayName { get; private set; }
 
 		public string ImageSource { get; }
 
-		public bool IsSoldOut
-		{
-			get => _isSoldOut;
-			private set
-			{
-				_isSoldOut = value;
-				OnPropertyChanged();
-			}
-		}
+		public bool IsSoldOut { get; private set; }
 
-		public DateTime? LastRefill
-		{
-			get => _lastRefill;
-			private set
-			{
-				_lastRefill = value;
-				OnPropertyChanged();
-			}
-		}
+		public DateTime? LastRefill { get; private set; }
 
 		public ICommand OrderCoffeeCommand => _orderCoffeeCommand ?? (_orderCoffeeCommand = new CommandHelper(OrderCoffee, () => CanOrderCoffee));
 
